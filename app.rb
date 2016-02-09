@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require './models/link'
+require './models/tag'
 
 
 class Bookmarks < Sinatra::Base
@@ -18,7 +19,8 @@ class Bookmarks < Sinatra::Base
   post '/links' do
     url = params[:url]
     name = params[:name]
-    Link.create(url: url, name: name)
+    tag = Tag.create(tag: params[:tag])
+    Link.create(url: url, name: name, tag: tag.tag)
     redirect('/links')
   end
 
