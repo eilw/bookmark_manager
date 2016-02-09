@@ -6,9 +6,10 @@ feature 'Adding tags' do
     visit ('/links/new')
     fill_in('name',with: 'Apple')
     fill_in('url', with: 'www.apple.com')
-    fill_in('tag', with: 'search')
+    fill_in('tags', with: 'search')
     click_button('Submit')
-    expect(page).to have_content('search')
+    link = Link.first
+    expect(link.tags.map(&:name)).to include('search')
 
   end
 
