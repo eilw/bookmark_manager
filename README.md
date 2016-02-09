@@ -25,5 +25,5 @@ I want to be able to filter links by tag
 `````
 As a user
 So I can use the bookmark manager
-I want my own private account
+I want my own private account.
 `````
