@@ -3,6 +3,8 @@ require './models/link'
 
 
 class Bookmarks < Sinatra::Base
+  ENV["RACK_ENV"] ||= "development"
+
 
   get '/links' do
     @links = Link.all
