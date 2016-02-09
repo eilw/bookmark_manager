@@ -1,4 +1,9 @@
 
 <ul id="links">
-  <li>Name: <%= @link.name %>, URL: <%= @link.url %></li>
+  <% @links.each do |link| %>
+  <li>
+    Name: <%= link.name %>
+    URL: <%= link.url %>
+  </li>
+  <% end %>
 </ul>
