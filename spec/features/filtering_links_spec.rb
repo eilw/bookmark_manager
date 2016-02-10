@@ -13,6 +13,5 @@ feature 'filter links' do
     visit('/tags/bubbles')
     expect(page).to have_content('test')
     expect(page).to have_content('www.test.com')
-    fill_in('tag', with: 'bubbles')
   end
 end
