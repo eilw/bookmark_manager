@@ -19,7 +19,9 @@ class BookmarkManager < Sinatra::Base
   end
 
   get '/tags/:tag' do
-    
+    @tag = params[:tag]
+    @links = Tag.all(tag: @tag).links
+    erb :tags
   end
 
   post '/links' do
