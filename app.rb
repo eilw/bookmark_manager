@@ -18,6 +18,10 @@ class BookmarkManager < Sinatra::Base
     erb :new
   end
 
+  get '/tags/:tag' do
+    
+  end
+
   post '/links' do
     link = Link.create(:title => params[:title], :url => params[:url])
     tag = Tag.create(:tag => params[:tag])

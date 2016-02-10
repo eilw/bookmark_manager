@@ -1,5 +1,3 @@
-require_relative "../spec_helper"
-
 feature 'viewing links' do
   scenario 'when a user visits the homepage it displays links' do
     link = Link.create(:title => "My Site", :url => "alex.avlonitis.me")
