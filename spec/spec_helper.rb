@@ -8,6 +8,8 @@ require 'capybara'
 require 'capybara/rspec'
 require 'rspec'
 require './models/link'
+require './models/tag'
+require './models/user'
 require 'database_cleaner'
 require_relative './features/web_helpers'
 

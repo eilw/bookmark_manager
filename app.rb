@@ -30,7 +30,23 @@ class Bookmarks < Sinatra::Base
 
   get '/tags/:name' do
     @links = Link.all(Link.tags.name => params[:name])
-    erb :bubbles
+    erb :'links/index'
+  end
+
+  get '/sign_up' do
+    erb :sign_up
+  end
+
+  post '/sign_up' do
+    @user = User.new(name: params[:name], email: params[:email])
+    @user.password = params[:password]
+    @user.save!
+    redirect('/sign_up/welcome')
+  end
+
+  get '/sign_up/welcome' do
+    @user = User.last
+    erb :welcome
   end
 
   #An altnerative way of doing it by identifying the tag first.

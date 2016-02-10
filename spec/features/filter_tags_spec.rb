@@ -17,4 +17,8 @@ feature 'can filter links by tag' do
     expect(page).not_to have_content('water.com')
     expect(page).to have_content('apple.com')
   end
+
+  scenario 'adding a new link adds the count by 1' do
+    expect{Link.create(url: 'www.apple.com', name: 'Apple', tags: [Tag.first_or_create(name: 'phones')])}.to change{Link.count}.by(1)
+  end
 end
