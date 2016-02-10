@@ -1,7 +1,7 @@
 feature 'signing up for a user account ' do
   before{
-    visit('/sign_up')
-    fill_in('name',with: 'Eirik Wiig')
+    visit('/signup')
+    fill_in('name', with: 'Eirik Wiig')
     fill_in('email', with: 'test_email@gmail.com')
     fill_in('password', with: 'weak')
     click_button('Submit')
@@ -16,8 +16,7 @@ feature 'signing up for a user account ' do
   end
 
   scenario 'the database stores the users email address' do
-    user = User.first
-    expect(user.email).to eq('test_email@gmail.com')
+    expect(User.first.email).to eq('test_email@gmail.com')
   end
 
 end

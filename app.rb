@@ -2,11 +2,16 @@ ENV["RACK_ENV"] ||= "development"
 
 require 'sinatra/base'
 require_relative 'data_mapper_setup'
-require "bcrypt"
 
 class Bookmarks < Sinatra::Base
   enable :sessions
-  set :sessions, true
+  set :session_secret, 'super secret'
+
+  helpers do
+    def current_user
+      @current_user || User.get(session[:user_id])
+    end
+  end
 
   get '/links' do
     @links = Link.all
@@ -34,22 +39,16 @@ class Bookmarks < Sinatra::Base
     erb :'links/index'
   end
 
-  get '/sign_up' do
+  get '/signup' do
     erb :sign_up
   end
 
-  post '/sign_up' do
-    @user = User.new(name: params[:name], email: params[:email])
-    session[:password_hash] = BCrypt::Password.create(params[:password])
-    @user.password = session[:password_hash]
-    @user.save!
-    redirect('/sign_up/welcome')
+  post '/signup' do
+    user = User.new(name: params[:name], email: params[:email], password: params[:password])
+    session[:user_id] = user.id
+    redirect('/links')
   end
 
-  get '/sign_up/welcome' do
-    @user = User.last
-    erb :welcome
-  end
 
 
   #An altnerative way of doing it by identifying the tag first.

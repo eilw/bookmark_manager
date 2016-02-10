@@ -7,16 +7,15 @@ class User
   property :id, Serial
   property :name, Text
   property :email, Text
-  property :password, Text
+  property :password_hash, Text
 
   # def password
   #   @password ||= Password.new(password_hash)
   # end
   #
-  # def password=(new_password)
-  #   @password = Password.create(new_password)
-  #   self.password_hash = @password
-  # end
+  def password=(password)
+    self.password_hash = BCrypt::Password.create(password)
+  end
   #
   # def login
   #   @user = User.find_by_email(params[:email])
