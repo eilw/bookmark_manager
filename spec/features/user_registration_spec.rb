@@ -18,5 +18,8 @@ end
 feature 'signing up with a password confirmation' do
   scenario 'no new user is created if passwords do not match' do
     expect{sign_up(password_confirmation:'wrong')}.not_to change(User, :count)
+    expect(current_path).to eq '/signup'
+    expect(find_field('name').value).to eq 'Eirik Wiig'
+    expect(find_field('email').value).to eq 'test_email@gmail.com'
   end
 end

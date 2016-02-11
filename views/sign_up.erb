@@ -3,11 +3,11 @@
 <form action= '/signup' method= "POST">
   <label for="name">
     Full name:
-    <input type= 'text' name= "name">
+    <input type= 'text' name= "name" value='<%= @user.name %>' >
   </label>
   <label for="email">
     Email:
-    <input type= 'text' name= "email">
+    <input type= 'text' name= "email" value='<%= @user.email %>' >
   </label>
   <label for="password">
     Password:
@@ -20,6 +20,7 @@
   <input type= 'submit' value= "Submit">
 </form>
 
-<% if @password_error %>
+<% unless current_user %>
 <p> Passwords do not match </p>
 <% end %>
+<%= flash[:blah] %>
