@@ -1,13 +1,17 @@
 ENV['RACK_ENV'] ||= 'development'
 
 require 'sinatra/base'
+require 'sinatra/flash'
+require 'bcrypt'
+
 require_relative 'models/data_mapper_setup'
 require_relative 'helpers/current_user_helper'
-require 'bcrypt'
+
 
 class BookmarkManager < Sinatra::Base
   include CurrentUser
   include BCrypt
+  register Sinatra::Flash
   enable :sessions
   set :session_secret, 'super secret'
 
@@ -30,14 +34,23 @@ class BookmarkManager < Sinatra::Base
     erb :tags
   end
 
-  get '/user/new' do
+  get '/users' do
     erb :signup
   end
 
-  post '/new-user' do
-    user = User.create(name: params[:name], email: params[:email], password: params[:password])
+  post '/users' do
+    user = User.create(name: params[:name],
+                       email: params[:email],
+                       password: params[:password],
+                       password_confirmation: params[:password_confirmation])
     session[:user_id] = user.id
-    redirect '/links'
+    error = flash[:notice] = "Error: Password Mismatch"
+    if user.valid?
+      redirect '/links'
+    else
+      flash.now[:notice] = "Error: Password Mismatch"
+      erb :signup
+    end
   end
 
   post '/links' do
