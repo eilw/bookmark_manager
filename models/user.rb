@@ -7,12 +7,14 @@ class User
 
   property :id, Serial
   property :name, Text
-  property :email, Text
+  property :email, Text, :required => true
   property :password_hash, Text
   attr_reader :password
   attr_accessor :password_confirmation
 
   validates_confirmation_of :password
+  validates_presence_of :email
+  validates_format_of :email, :with => /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$/
 
   # def password
   #   @password ||= Password.new(password_hash)
