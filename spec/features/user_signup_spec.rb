@@ -23,6 +23,15 @@ feature 'User Signup' do
   scenario 'An error message is diplayed if wrong password twice' do
     fill_in('password_confirmation', with: '15342')
     click_button('Register')
-    expect(page).to have_content("Error: Password Mismatch")
+    expect(page).to have_content("Error: Wrong details")
+  end
+
+  scenario 'A user can\'t signup if he doesn\'t provide an email' do
+    visit('/users')
+    fill_in('name', with: 'Alex')
+    fill_in('password', with: '123456')
+    fill_in('password_confirmation', with: '123456')
+    click_button('Register')
+    expect(User.all).to be_empty
   end
 end
