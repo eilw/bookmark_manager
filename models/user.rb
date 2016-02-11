@@ -19,20 +19,22 @@ class User
 
   #regex to compare the email: :with => /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$/
 
+  def password
+    @password ||= BCrypt::Password.new(password_hash)
+  end
 
   def password=(password)
     @password = password
     self.password_hash = BCrypt::Password.create(password)
   end
   #
-  # def login
-  #   @user = User.find_by_email(params[:email])
-  #   if @user.password == params[:password]
-  #     give_token
-  #   else
-  #     redirect_to home_url
-  #   end
-  # end
+  def login(password)
+    if self.password == password
+      ('/links')
+    else
+      ('/login')
+    end
+  end
   #
   # # assign them a random one and mail it to them, asking them to change it
   # def forgot_password

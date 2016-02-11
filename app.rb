@@ -62,7 +62,8 @@ class Bookmarks < Sinatra::Base
   end
 
   post '/login' do
-    
+    @user = User.first(email: params[:email])
+    redirect(@user.login(params[:password]))
   end
 
 
