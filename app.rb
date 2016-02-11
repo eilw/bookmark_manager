@@ -44,9 +44,13 @@ class Bookmarks < Sinatra::Base
   end
 
   post '/signup' do
-    p user = User.create(name: params[:name], email: params[:email], password: params[:password])
-    p session[:user_id] = user.id
-    redirect('/links')
+    # if params[:password] == params[:password_confirmation]
+      user = User.create(name: params[:name], email: params[:email], password: params[:password], password_confirmation: params[:password_confirmation])
+      session[:user_id] = user.id
+      redirect('/links')
+    # else
+    #   redirect('/signup')
+    # end
   end
 
 

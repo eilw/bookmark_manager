@@ -13,5 +13,13 @@
     Password:
     <input type= 'password' name= "password">
   </label>
+  <label for="password_confirmation">
+    Confirm password:
+    <input type= 'password' name= "password_confirmation">
+  </label>
   <input type= 'submit' value= "Submit">
 </form>
+
+<% if @password_error %>
+<p> Passwords do not match </p>
+<% end %>
