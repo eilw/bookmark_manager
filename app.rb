@@ -52,9 +52,17 @@ class Bookmarks < Sinatra::Base
         session[:user_id] = @user.id
         redirect('/links')
       else
-        flash.now[:blah] = "Check your login details"
+        flash.now[:errors] = @user.errors.full_messages
         erb :sign_up
       end
+  end
+
+  get '/login' do
+    erb :login
+  end
+
+  post '/login' do
+    
   end
 
 

@@ -7,7 +7,7 @@
   </label>
   <label for="email">
     Email:
-    <input type= 'text' required name= "email" value='<%= @user.email %>' pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$">
+    <input type= 'email' required name= "email" value='<%= @user.email %>' pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$">
   </label>
   <label for="password">
     Password:
@@ -19,8 +19,3 @@
   </label>
   <input type= 'submit' value= "Submit">
 </form>
-
-<% unless current_user %>
-<p> Passwords do not match </p>
-<% end %>
-<%= flash[:blah] %>
