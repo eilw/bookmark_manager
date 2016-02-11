@@ -1,4 +1,7 @@
-<h1> Bookmarks - Welcome <%= @user %> </h1>
+<h1> Bookmarks </h1>
+<% if current_user %>
+  <h2> Welcome <%= current_user.name %> </h2>
+<% end %>
 
 <ul>
   <% @links.each do |link| %>

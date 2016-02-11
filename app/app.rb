@@ -1,12 +1,15 @@
 ENV['RACK_ENV'] ||= 'development'
 
 require 'sinatra/base'
-require_relative './models/data_mapper_setup'
+require_relative 'models/data_mapper_setup'
+require_relative 'helpers/current_user_helper'
 require 'bcrypt'
 
 class BookmarkManager < Sinatra::Base
+  include CurrentUser
   include BCrypt
   enable :sessions
+  set :session_secret, 'super secret'
 
   get '/' do
     redirect '/links'
@@ -14,7 +17,6 @@ class BookmarkManager < Sinatra::Base
 
   get '/links' do
     @links = Link.all
-    @user = session[:user_name]
     erb :links
   end
 
@@ -33,8 +35,8 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/new-user' do
-    User.create(name: params[:name], email: params[:email], password: params[:password])
-    session[:user_name] = params[:name]
+    user = User.create(name: params[:name], email: params[:email], password: params[:password])
+    session[:user_id] = user.id
     redirect '/links'
   end
 
