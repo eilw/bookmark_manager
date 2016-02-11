@@ -1,4 +1,4 @@
-require_relative 'app'
+require_relative 'app/app'
 
 task :upgrade do
   DataMapper.auto_upgrade!
