@@ -1,7 +1,7 @@
 class BookmarkManager < Sinatra::Base
 
   delete '/logout' do
-    flash[:goodbye] = "Goodbye #{current_user.name}"
+    flash[:notice] = "Goodbye #{current_user.name}"
     session.clear
     redirect '/links'
   end
@@ -18,6 +18,15 @@ class BookmarkManager < Sinatra::Base
     else
       redirect('/users/login')
     end
+  end
+
+  get '/users/reset-password' do
+    erb :reset_password
+  end
+
+  post '/users/reset-password' do
+    flash[:notice] = "Your password has been sent"
+    redirect '/users/login'
   end
 
 end

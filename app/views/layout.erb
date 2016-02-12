@@ -3,12 +3,12 @@
     <title>Bookmark Manager</title>
   </head>
   <body>
-    <% if flash[:notice] && !flash[:notice].empty? %>
-      <% flash[:notice].each do |error| %>
+    <% if flash[:errors] && !flash[:errors].empty? %>
+      <% flash[:errors].each do |error| %>
         <div id='notice'><%= error %></div>
       <% end %>
     <% end %>
-    <%= flash[:goodbye] %>
+    <%= flash[:notice] %>
     <%= yield %>
   </body>
 </html>
