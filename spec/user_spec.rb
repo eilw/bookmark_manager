@@ -12,4 +12,17 @@ describe User do
       expect(user.authenticate(12345)).to be nil
     end
   end
+
+  # describe '#forgot_password' do
+  #   it 'creates a token time' do
+  #     user.forgot_password
+  #     expect(user.token_created_time).not_to be nil
+  #   end
+  #
+  #   it 'creates a token' do
+  #     user.forgot_password
+  #     expect(user.password_token).
+  #   end
+  #
+  # end
 end

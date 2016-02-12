@@ -7,6 +7,8 @@ class User
   property :name, String
   property :email, String, format: :email_address, required: true, unique: true
   property :password_digest, BCryptHash
+  # property :password_token, Text
+  # property :token_time, Time
 
   attr_accessor :password_confirmation
   attr_reader :password
