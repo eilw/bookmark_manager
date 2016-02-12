@@ -1,4 +1,10 @@
 feature 'Add links' do
+
+  before do
+    signup
+    login
+  end
+
   scenario 'a user can add and store links' do
     visit('links/new')
     fill_in('title', with: 'test')

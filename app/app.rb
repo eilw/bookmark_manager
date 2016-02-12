@@ -11,9 +11,12 @@ require_relative 'helpers/current_user_helper'
 class BookmarkManager < Sinatra::Base
   include CurrentUser
   include BCrypt
+
   register Sinatra::Flash
   enable :sessions
+
   set :session_secret, 'super secret'
+  set :method_override, true
 
   get '/' do
     redirect '/links'
@@ -59,6 +62,12 @@ class BookmarkManager < Sinatra::Base
       link.tags << tagg
       link.save
     end
+    redirect '/links'
+  end
+
+  delete '/logout' do
+    flash[:goodbye] = "Goodbye #{current_user.name}"
+    session.clear
     redirect '/links'
   end
 

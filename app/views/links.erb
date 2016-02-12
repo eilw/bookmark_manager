@@ -1,14 +1,19 @@
 <h1> Bookmarks </h1>
 <% if current_user %>
   <h2> Welcome <%= current_user.name %> </h2>
-<% end %>
+  <form action='/logout' method="post">
+    <input name="_method" type="hidden" value="delete">
+    <input type="submit" value="logout">
+  </form>
 
-<ul>
-  <% @links.each do |link| %>
-  <li>
-    <strong>Title:</strong> <%= link.title %>
-    <strong>URL:</strong> <%= link.url %>
-    <strong>Tag:</strong> <% link.tags.each do |tag| %> <%= tag.tag %> <% end %>
-  </li>
-  <% end %>
-</ul>
+  <ul>
+    <% @links.each do |link| %>
+    <li>
+      <strong>Title:</strong> <%= link.title %>
+      <strong>URL:</strong> <%= link.url %>
+      <strong>Tag:</strong> <% link.tags.each do |tag| %> <%= tag.tag %> <% end %>
+    </li>
+    <% end %>
+  </ul>
+  
+<% end %>
