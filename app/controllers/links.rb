@@ -1,7 +1,7 @@
 
 class BookmarkManager < Sinatra::Base
 
-  set :views, Proc.new { File.join(root, "../views") }
+
 
   get '/links' do
     @links = Link.all

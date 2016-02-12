@@ -1,0 +1,9 @@
+<h1> Links filtered by <%= @tag %> </h1>
+<% @links.each do |link| %>
+<ul>
+  <li>
+    <%= link.title %>
+    <%= link.url %>
+  </li>
+</ul>
+<% end %>
