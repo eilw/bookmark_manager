@@ -25,4 +25,12 @@ class User
   def authenticate(password)
     self.id if self.password == password
   end
+
+  def forgot_password
+    random_password = Array.new(10).map { (65 + rand(58)).chr }.join
+    self.password = random_password
+    self.save!
+    #Mailer.create_and_deliver_password_change(self, random_password)
+  end
+
 end

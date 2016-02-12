@@ -25,6 +25,8 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/users/reset-password' do
+    user = User.first(email: params[:email])
+    user.forgot_password
     flash[:notice] = "Your password has been sent"
     redirect '/users/login'
   end
