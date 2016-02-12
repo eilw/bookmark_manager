@@ -3,7 +3,9 @@ ENV['RACK_ENV'] ||= 'development'
 require 'sinatra/base'
 require 'sinatra/flash'
 require 'bcrypt'
+require 'sinatra/partial'
 
+require_relative './controllers/init'
 require_relative 'models/data_mapper_setup'
 require_relative 'helpers/current_user_helper'
 
@@ -11,79 +13,24 @@ require_relative 'helpers/current_user_helper'
 class BookmarkManager < Sinatra::Base
   include CurrentUser
   include BCrypt
+  register Sinatra::Partial
 
   register Sinatra::Flash
   enable :sessions
 
+  enable :partial_underscores
+
+
+  set :partial_template_engine, :erb
   set :session_secret, 'super secret'
   set :method_override, true
+  set :views, Proc.new { File.join(root, "../views") }
+
 
   get '/' do
     redirect '/links'
   end
 
-  get '/links' do
-    @links = Link.all
-    erb :links
-  end
-
-  get '/links/new' do
-    erb :new
-  end
-
-  get '/tags/:tag' do
-    @tag = params[:tag]
-    @links = Tag.all(tag: @tag).links
-    erb :tags
-  end
-
-  get '/users' do
-    erb :signup
-  end
-
-  post '/users' do
-    user = User.create(name: params[:name],
-                       email: params[:email],
-                       password: params[:password],
-                       password_confirmation: params[:password_confirmation])
-    session[:user_id] = user.id
-    if user.valid?
-      redirect '/links'
-    else
-      flash[:notice] = user.errors.full_messages
-      redirect '/users'
-    end
-  end
-
-  post '/links' do
-    link = Link.create(:title => params[:title], :url => params[:url])
-    params[:tag].split(',').each do |tag|
-      tagg = Tag.create(tag: tag)
-      link.tags << tagg
-      link.save
-    end
-    redirect '/links'
-  end
-
-  delete '/logout' do
-    flash[:goodbye] = "Goodbye #{current_user.name}"
-    session.clear
-    redirect '/links'
-  end
-
-  get '/users/login' do
-    erb :login
-  end
-
-  post '/users/login' do
-    user = User.first(email: params[:email])
-    session[:user_id] = user.authenticate(params[:password]) if user
-    if session[:user_id]
-      redirect('/links')
-    else
-      redirect('/users/login')
-    end
-  end
 
   # start the server if ruby file executed directly
   run! if app_file == $0
