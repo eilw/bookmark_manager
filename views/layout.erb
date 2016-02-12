@@ -1,20 +1,31 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title> Bookmark Manager</title>
-  </head>
-
-  <body>
+    <link rel="stylesheet" type="text/css" href='app.css'>
+    <link rel="stylesheet" type="text/css" href="reset.css">
+  <header>
+    <div id='logo'> Bookmark Manager </div>
+    <div id='user-links'>
     <% if current_user %>
+
+    <span id='welcome message'>
     Welcome, <%= current_user.name%>
+    </span>
     <% end %>
+
+    <form id='sign-out' method='post' action='/session'>
+      <input type='hidden' name='_method' value='delete'>
+      <input type='submit' value ='Sign out'>
+    </form>
 
     <% if flash[:errors] && !flash[:errors].empty? %>
     <ul id='errors'>
+
       <% flash[:errors].each do |error| %>
         <li><%= error %> </li>
       <% end %>
     </ul>
+
     <% end %>
     <%= yield %>
   </body>
