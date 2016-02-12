@@ -47,7 +47,7 @@ class BookmarkManager < Sinatra::Base
     if user.valid?
       redirect '/links'
     else
-      flash[:notice] = "Error: Wrong details"
+      flash[:notice] = user.errors.full_messages
       redirect '/users'
     end
   end
