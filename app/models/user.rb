@@ -13,8 +13,16 @@ class User
 
   validates_confirmation_of :password
 
+  def password
+    @password ||= BCrypt::Password.new(password_digest)
+  end
+
   def password=(password)
     @password = BCrypt::Password.create(password)
     self.password_digest = @password
+  end
+
+  def authenticate(password)
+    self.id if self.password == password
   end
 end
